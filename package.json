@@ -1,0 +1,22 @@
+{
+  "name": "trabalho-teste-carga",
+  "version": "1.0.0",
+  "description": "Trabalho de teste de carga usando k6",
+  "scripts": {
+    "test": "k6 run tests/loadtest.js"
+  },
+  "keywords": [
+    "k6",
+    "loadtest",
+    "performance",
+    "api"
+  ],
+  "author": "Seu Nome",
+  "license": "MIT",
+  "dependencies": {
+    "k6": "^0.0.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

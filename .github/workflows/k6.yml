@@ -1,0 +1,24 @@
+name: k6 Load Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  k6-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install k6
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gnupg software-properties-common
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 33C235A34C46AA3FFB293709A328C3A2C3C45C06
+          echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+      - name: Run k6 load test
+        run: k6 run tests/loadtest.js
