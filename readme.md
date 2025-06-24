@@ -70,4 +70,4 @@ O teste executa requisições GET para a API pública jsonplaceholder, simulando
 
 ## Autor
 
-gabrieldorodrigues, turma001
+@gabrieldorodrigues
