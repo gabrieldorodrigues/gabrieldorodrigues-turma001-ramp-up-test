@@ -15,12 +15,11 @@ jobs:
       - name: Install Homebrew
         run: |
           yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          echo "eval \$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" >> $GITHUB_ENV
+          echo "HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew" >> $GITHUB_ENV
+          echo "PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH" >> $GITHUB_ENV
+          echo "MANPATH=/home/linuxbrew/.linuxbrew/share/man:$MANPATH" >> $GITHUB_ENV
+          echo "INFOPATH=/home/linuxbrew/.linuxbrew/share/info:$INFOPATH" >> $GITHUB_ENV
       - name: Install k6 via Homebrew
-        run: |
-          eval "$($(brew --prefix)/bin/brew shellenv)"
-          brew install k6
+        run: brew install k6
       - name: Run k6 load test
-        run: |
-          eval "$($(brew --prefix)/bin/brew shellenv)"
-          k6 run tests/loadtest.js
+        run: k6 run tests/loadtest.js
