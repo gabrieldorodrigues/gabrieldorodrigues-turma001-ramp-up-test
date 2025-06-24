@@ -12,9 +12,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Install k6 (via script)
+      - name: Install Homebrew
         run: |
-          curl -s https://packagecloud.io/install/repositories/loadimpact/k6/script.deb.sh | sudo bash
-          sudo apt-get install -y k6
+          yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          echo "eval \$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" >> $GITHUB_ENV
+      - name: Install k6 via Homebrew
+        run: |
+          eval "$($(brew --prefix)/bin/brew shellenv)"
+          brew install k6
       - name: Run k6 load test
-        run: k6 run tests/loadtest.js
+        run: |
+          eval "$($(brew --prefix)/bin/brew shellenv)"
+          k6 run tests/loadtest.js
